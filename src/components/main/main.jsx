@@ -1,13 +1,73 @@
+/**
+ * TODOS
+ * 1. Implement Swap
+ * 2. Add a for loop
+ * 3. Use real time data
+ * 4. Explore the possibility of states for input, select and output
+ * 5. Search currency -- (EXPLORE ALTERNATIVES)
+ * 
+ * 5.2 Change UI and make it responsive
+ *
+ * 
+ * 6. Two way data binding
+ * 6.2 colour options
+ * 
+ * 7. Implement a form -- not req
+ * 8. Two way conversion 
+ */
+
+
 import './main.scss';
+import { convert } from './service/main.service';
 // import * as exchangeRate from './assets/usd.json';
 
 function Main() {
+
+    /**
+     * Handle convert button click
+     * @returns null
+     */
     function handleconvert() {
         console.log('Convert begins');
+        const inp_1 = document.querySelector('#input_1').value;
+        const sel_1 = document.querySelector('#cc-select_1').value;
+        const sel_2 = document.querySelector('#cc-select_2').value;
+        const output_el = document.querySelector('#output');
+
+        if(sel_1 === '' || sel_2 === '' || inp_1 <= 0 ){
+            console.log('Invalid');
+            return;
+        }
+        const output = convert(sel_1.toLowerCase(), parseFloat(inp_1), sel_2.toLowerCase());
+        output_el.innerHTML = `Output - ${output} ${sel_2.toUpperCase()}`;
     }
+
+    /**
+     * Handle reset button click
+     * @returns null
+     */
     function handleReset() {
         console.log('Reset begins');
+        const inp_1_el = document.querySelector('#input_1');
+        const sel_1_el = document.querySelector('#cc-select_1');
+        const sel_2_el = document.querySelector('#cc-select_2');
+        const output_el = document.querySelector('#output');
+
+        inp_1_el.value = null;
+        sel_1_el.value = '';
+        sel_2_el.value = '';
+        output_el.innerHTML = '';
     }
+
+    /**
+     * Handle swap button click
+     * @returns null
+     */
+    function handleSwap() {
+        console.log('Swap');
+    }
+
+
     return (
         <>
             <div className='cc-wrapper'>
@@ -17,8 +77,8 @@ function Main() {
                     <div className="c-cC__input">
                         <div className="c-cC__input-top">
                             <div className="c-cC__input-wrap">
-                                <input type="number" name="input_1_val" id='input_1_val' className="c-cC__input-field" min="1" placeholder="Number Input..."/>
-                                <select name='cc-select' id='cc-select' aria-label='currency 1'>
+                                <input type="number" name="input_1" id='input_1' className="c-cC__input-field" min="1" placeholder="Number Input..."/>
+                                <select name='cc-select' id='cc-select_1' aria-label='currency 1'>
                                     <option value="">--Please choose an option--</option>
                                     <option value="usd">US Dollar - USD</option>
                                     <option value="inr">Indian Rupee - INR</option>
@@ -27,7 +87,7 @@ function Main() {
                                 </select>
                             </div>
                             <div className="">
-                                <button type="button" className="btn btn-secondary">Swap</button>
+                                <button type="button" className="btn btn-secondary" onClick={handleSwap}>Swap</button>
                             </div>
                             <div className="c-cC__input-wrap">
                                 <select name='cc-select_2' id='cc-select_2' aria-label='currency 2'>
@@ -46,9 +106,7 @@ function Main() {
                         </div>
                     </div>
 
-                    <div className='c-cc__result'>
-                        Converted value = ""-""
-                    </div>
+                    <div className='c-cc__result' id="output"></div>
                 </div>
             </div>
         </>

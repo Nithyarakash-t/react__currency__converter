@@ -34,7 +34,7 @@
     &__input{
         display: flex; flex-direction: column; gap: 2rem;
 
-        &-top{ display: flex; justify-content: center; gap: 1rem; }
+        &-top{ display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
         &-bottom{ display: flex; justify-content: flex-end; gap: 1rem;}
 
         &-wrap{
