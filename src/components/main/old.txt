@@ -18,37 +18,29 @@
  */
 
 
-import { useEffect, useState } from 'react';
 import './main.scss';
 import { convert } from './service/main.service';
+// import * as exchangeRate from './assets/usd.json';
 
 function Main() {
-    const [fromCurrency, setFromCurrency] = useState('');
-    const [toCurrency, setToCurrency] = useState('');
-    const [amount, setAmount] = useState(null);
-    const [output, setOutput] = useState(null);
-
-    useEffect(()=>{
-        return ()=>{
-
-        };
-    }, [fromCurrency, toCurrency, amount, output]);
 
     /**
      * Handle convert button click
      * @returns null
      */
     function handleconvert() {
-        console.info('Convert begins');
+        console.log('Convert begins');
+        const inp_1 = document.querySelector('#input_1').value;
+        const sel_1 = document.querySelector('#cc-select_1').value;
+        const sel_2 = document.querySelector('#cc-select_2').value;
+        const output_el = document.querySelector('#output');
 
-        if(fromCurrency === '' || toCurrency === '' || amount < 0 ){
-            console.error('Invalid');
+        if(sel_1 === '' || sel_2 === '' || inp_1 <= 0 ){
+            console.log('Invalid');
             return;
         }
-        const output = convert(fromCurrency.toLowerCase(), parseFloat(amount), toCurrency.toLowerCase());
-        setOutput(output);
-
-        console.info('Convert ends');
+        const output = convert(sel_1.toLowerCase(), parseFloat(inp_1), sel_2.toLowerCase());
+        output_el.innerHTML = `Output - ${output} ${sel_2.toUpperCase()}`;
     }
 
     /**
@@ -56,14 +48,16 @@ function Main() {
      * @returns null
      */
     function handleReset() {
-        console.info('Reset begins');
+        console.log('Reset begins');
+        const inp_1_el = document.querySelector('#input_1');
+        const sel_1_el = document.querySelector('#cc-select_1');
+        const sel_2_el = document.querySelector('#cc-select_2');
+        const output_el = document.querySelector('#output');
 
-        setFromCurrency('');
-        setToCurrency('');
-        setAmount(0);
-        setOutput(null);
-
-        console.info('Reset ends');
+        inp_1_el.value = null;
+        sel_1_el.value = '';
+        sel_2_el.value = '';
+        output_el.innerHTML = '';
     }
 
     /**
@@ -71,28 +65,19 @@ function Main() {
      * @returns null
      */
     function handleSwap() {
-        console.info('Swap begins');
-
-        const from = fromCurrency;
-        const to = toCurrency;
-        setFromCurrency(to);
-        setToCurrency(from);
-
-        handleconvert(); // not working properly here -- try calling at useEffect (but it works automatically without pressing convert)
-
-        console.info('Swap ends');
+        console.log('Swap');
     }
 
 
     return (
         <div className='cc-container'>
             <div className='cc-wrapper'>
-                <h1 className='cc-header'>Currency Converter</h1>
+                <div className='cc-header' role='heading' aria-level='1'>Currency Converter</div>
 
                 <div className='cc-body'>
                     <div className='cc-inpwrap'>
-                        <input type="number" name="input_1" id='input_1' className="cc-input" min="1" placeholder="Number Input..." value={amount === null ? '' : amount} onChange={e => setAmount(e.target.value)}/>
-                        <select name='cc-select' id='cc-select_1' aria-label='currency 1' value={fromCurrency} onChange={e => setFromCurrency(e.target.value)}>
+                        <input type="number" name="input_1" id='input_1' className="cc-input" min="1" placeholder="Number Input..."/>
+                        <select name='cc-select' id='cc-select_1' aria-label='currency 1'>
                             <option value="">--Please choose an option--</option>
                             <option value="usd">US Dollar - USD</option>
                             <option value="inr">Indian Rupee - INR</option>
@@ -104,7 +89,7 @@ function Main() {
                         <button type="button" className="btn btn-secondary" onClick={handleSwap}>Swap</button>
                     </div>
                     <div className='cc-inpwrap'>
-                        <select name='cc-select_2' id='cc-select_2' aria-label='currency 2' value={toCurrency} onChange={e => setToCurrency(e.target.value)}>
+                        <select name='cc-select_2' id='cc-select_2' aria-label='currency 2'>
                             <option value="">--Please choose an option--</option>
                             <option value="usd">US Dollar - USD</option>
                             <option value="inr">Indian Rupee - INR</option>
@@ -119,7 +104,7 @@ function Main() {
                     <button type="button" className="btn btn-danger" onClick={handleReset}>Reset</button>
                 </div>
 
-                <div className='cc-result' id='output'>{output && `Output - ${output} ${toCurrency.toUpperCase()}`}</div>
+                <div className='cc-result' id='output'></div>
             </div>
         </div>
     )

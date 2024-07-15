@@ -1,0 +1,20 @@
+/**
+ * TODOS
+ * 1. Implement Swap -- LATER
+ * 2. Add a for loop
+ * 3. Use real time data 
+        show a sliding carousel of real time data
+ * 4. Explore the possibility of states for input, select and output
+ * 5. Search currency -- (EXPLORE ALTERNATIVES)
+ * 
+ * 5.2 Change UI and make it responsive
+ *
+ * 
+ * 6. Two way data binding
+ * 6.2 colour options
+ * 
+ * 7. Implement a form -- not req
+ * 8. Two way conversion 
+ * 9. Graph
+*  10. data types without tpescript
+ */
