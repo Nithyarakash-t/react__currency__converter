@@ -100,7 +100,7 @@ body {
   display: grid;
   place-content: center;
   min-height: 100vh;
-
+  background-color: #fff;
   font-family: var(--ff-primary);
   font-weight: var(--fw-400);
   margin: 0;
