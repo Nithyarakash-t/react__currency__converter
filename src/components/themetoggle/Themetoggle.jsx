@@ -9,6 +9,7 @@ export function Themetoggle() {
     }
     return (
         <>
+            {showToggle && <div className="cc-themetoggle__underlay"></div> }
             <div className={`cc-themetoggle__overlay ${showToggle ? "-open" : (showToggle === false ? "-collapse" : "")}`}></div>
             <button type="button" className="cc-themetoggle__button" aria-label="Toggle theme" onClick={toggle}></button>
         </>

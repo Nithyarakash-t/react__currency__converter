@@ -1,0 +1,34 @@
+.cc-mthemetoggle {
+    &__overlay {
+		width: 44px;
+        height: 44px;
+        position: fixed;
+        border-radius: 50%;
+        left: 2rem;
+        bottom: 2rem;
+        pointer-events: none;
+        background: #fff;
+        transition: all 0.5s ease;
+        mix-blend-mode: difference;
+        z-index: 9999;
+
+        &.-open {
+            scale: 100;
+            + .cc-mthemetoggle__button {
+                background-color: aquamarine;
+            }
+        }
+    }
+    &__button {
+        position: fixed;
+        inset: auto auto 2rem 2rem;
+        height: 44px;
+        width: 44px;
+        border-radius: 50%;
+        background-color: #d8334a;
+        cursor: pointer;
+        z-index: 999999;
+        border: 0;
+        transition: background-color 0.15s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+}

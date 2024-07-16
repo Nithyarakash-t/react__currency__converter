@@ -1,0 +1,70 @@
+.cc-nthemetoggle {
+    &__overlay {
+        z-index: 2;
+        position: fixed;
+        bottom: 2rem;
+        left: 2rem;
+        width: 0rem;
+        height: 0rem;
+        border-radius: 100%;
+        background-color: #fff;
+        z-index: 999999;
+        pointer-events: none;
+        mix-blend-mode: difference;
+        &.-open {
+			animation: animatein 1.5s ease-in forwards;
+            + .cc-nthemetoggle__button {
+                background-color: #d8334a;
+            }
+		}
+        &.-close {
+            animation: animateout 1.5s ease-out forwards;
+        }
+		@keyframes animatein {
+			0% {
+				bottom:3rem;
+				left:3rem;
+				width:0rem;
+				height:0rem;
+				clip-path: circle(0rem at center);
+			}
+			100% {
+				//You can't use translate(-50%, -50%) to keep it aligned because it affects the container inside, so you need to animate the position
+				bottom:calc(-250vmax + 3rem);
+				left:calc(-250vmax + 3rem);
+				width:500vmax;
+				height:500vmax;
+				clip-path: circle(100% at center);
+			}
+		}
+        @keyframes animateout {
+			0% {
+				//You can't use translate(-50%, -50%) to keep it aligned because it affects the container inside, so you need to animate the position
+				bottom:calc(-250vmax + 3rem);
+				left:calc(-250vmax + 3rem);
+				width:500vmax;
+				height:500vmax;
+				clip-path: circle(100% at center);
+			}
+            100% {
+				bottom:3rem;
+				left:3rem;
+				width:0rem;
+				height:0rem;
+				clip-path: circle(0rem at center);
+			}
+		}
+    }
+    &__button {
+        position: fixed;
+        inset: auto auto 2rem 2rem;
+        height: 44px;
+        width: 44px;
+        border-radius: 50%;
+        background-color: #000;
+        cursor: pointer;
+        z-index: 999999;
+        border: 0;
+        transition: background-color 0.15s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+}

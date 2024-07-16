@@ -29,20 +29,22 @@ function Main() {
     const [output, setOutput] = useState(null);
 
     useEffect(()=>{
-        return ()=>{
+        console.info('use effect')
+        handleConvert();
 
+        return ()=>{
         };
-    }, [fromCurrency, toCurrency, amount, output]);
+    }, [handleSwap]);
 
     /**
      * Handle convert button click
      * @returns null
      */
-    function handleconvert() {
+    function handleConvert() {
         console.info('Convert begins');
 
         if(fromCurrency === '' || toCurrency === '' || amount < 0 ){
-            console.error('Invalid');
+            console.info('Invalid');
             return;
         }
         const output = convert(fromCurrency.toLowerCase(), parseFloat(amount), toCurrency.toLowerCase());
@@ -73,12 +75,8 @@ function Main() {
     function handleSwap() {
         console.info('Swap begins');
 
-        const from = fromCurrency;
-        const to = toCurrency;
-        setFromCurrency(to);
-        setToCurrency(from);
-
-        handleconvert(); // not working properly here -- try calling at useEffect (but it works automatically without pressing convert)
+        setFromCurrency(toCurrency);
+        setToCurrency(fromCurrency);
 
         console.info('Swap ends');
     }
@@ -115,7 +113,7 @@ function Main() {
                 </div>
 
                 <div className="cc-footer">
-                    <button type="button" className="btn btn-success" onClick={handleconvert}>Convert</button>
+                    <button type="button" className="btn btn-success" onClick={handleConvert}>Convert</button>
                     <button type="button" className="btn btn-danger" onClick={handleReset}>Reset</button>
                 </div>
 
