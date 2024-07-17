@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useState } from "react"
 import './Themetoggle.scss';
 
 export function Themetoggle() {
